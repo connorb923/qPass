@@ -1,6 +1,10 @@
 ﻿#pragma once
 
 #include <iostream>
+#include <string>
+#include <vector>
+#include <ctime>
+#include <random>
 
-std::string command;
+extern std::string command;
 void displayHelp();
