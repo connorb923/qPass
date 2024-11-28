@@ -12,7 +12,7 @@ endif()
 project ("qPass")
 
 # Add source to this project's executable.
-add_executable (qPass "src/main.cpp" "include/main.h" "src/gen.cpp" "src/manager.cpp" "include/manager.h" "include/database.h" "src/database.cpp")
+add_executable (qPass "src/main.cpp" "include/main.h" "src/gen.cpp"   "include/project.h" "src/project.cpp" "include/toml.h" "src/toml.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET qPass PROPERTY CXX_STANDARD 20)
