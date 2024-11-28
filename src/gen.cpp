@@ -1,19 +1,29 @@
 #include "../include/gen.h"
 
-const std::string allowedCharacters = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890!.$#&([])";
+const std::string allowedwSpecialCharacters = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890!.$#&{([])}\|/,:@";
+const std::string allowednSpecialCharacters = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890";
 
 static std::random_device rd;
 static std::mt19937 rng(rd());
-static std::uniform_int_distribution<size_t> dist(0, allowedCharacters.size() - 1);
 
-char randomChar() {
-    return allowedCharacters[dist(rng)];
+
+char randomChar(bool specialChar) {
+    if (specialChar) {
+        static std::uniform_int_distribution<size_t> dist(0, allowedwSpecialCharacters.size() - 1);
+        return allowedwSpecialCharacters[dist(rng)];
+    }
+    else
+    {
+        static std::uniform_int_distribution<size_t> dist(0, allowednSpecialCharacters.size() - 1);
+        return allowednSpecialCharacters[dist(rng)];
+    }
+
 }
 
-std::string passGen(int length) {
+std::string passGen(bool specialCharacters, int length) {
     std::vector<char> passVec(length);
     for (int i = 0; i < length; ++i) {
-        passVec[i] = randomChar();
+        passVec[i] = randomChar(specialCharacters);
     }
 
     return std::string(passVec.begin(), passVec.end());

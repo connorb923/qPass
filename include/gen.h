@@ -2,5 +2,5 @@
 
 #include "main.h"
 
-char randomChar();
-std::string passGen(int length);
+char randomChar(bool specialChar);
+std::string passGen(bool specialCharacters, int length);

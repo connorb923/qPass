@@ -21,18 +21,37 @@ int main(int argc, char* argv[])
     else if (command == "remove") {
     }
     else if (command == "generate") {
-        if (argc < 4) {
+        if (argc != 5) {
             std::cerr << "Insufficient arguments for 'generate'.\n";
+            for (int i = 0; i < argc; ++i) {
+                std::cerr << "argv[" << i << "]: " << argv[i] << "\n";
+            }
             displayHelp();
             return 1;
         }
 
         std::string name = argv[2];
-        int length = std::stoi(argv[3]);
+        std::string allowSpecial = argv[3];
+        int length = std::stoi(argv[4]);
 
-        std::string password = passGen(length);
+        if (allowSpecial == "y" || allowSpecial == "Y" || allowSpecial == "n" || allowSpecial == "N") {
 
-        std::cout << "Password: " << password << " generated for " << name << "\n";
+            std::string password;
+
+            if (allowSpecial == "y" || allowSpecial == "Y") {
+                password = passGen(true,length);
+            }
+            else {
+                password = passGen(false, length);
+            }
+
+
+            std::cout << "Password: " << password << " generated for " << name << "\n";
+        }
+        else {
+            std::cerr << "Invalid Argument 3! " << allowSpecial;
+        }
+
     }
     else if (command == "list") {
     }
@@ -53,6 +72,6 @@ void displayHelp() {
         << "    qpass help\n          - Displays this message \n"
         << "    qpass add [string name] [string password]\n          - Adds a password to the database.\n"
         << "    qpass remove [string name]\n          - Removes a password from the database.\n"
-        << "    qpass generate [name] [int length]\n          - Generates a password then adds it to the database.\n"
+        << "    qpass generate [name] [y/n special characters] [int length]\n          - Generates a password then adds it to the database.\n"
         << "    qpass list\n          - Lists all the passwords\n";
 }
